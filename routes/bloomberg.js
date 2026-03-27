@@ -4,7 +4,7 @@ import Parser from 'rss-parser';
 const router = express.Router();
 const parser = new Parser();
 
-const RSS_URL = 'https://news.google.com/rss/search?q=Bloomberg+%E7%B1%B3%E5%9B%BD%E5%B8%82%E6%B3%81&hl=ja&gl=JP&ceid=JP:ja';
+const RSS_URL = 'https://news.google.com/rss/search?q=%E3%80%90%E7%B1%B3%E5%9B%BD%E5%B8%82%E6%B3%81%E3%80%91+Bloomberg&hl=ja&gl=JP&ceid=JP:ja';
 
 router.get('/', async (_req, res) => {
   try {
