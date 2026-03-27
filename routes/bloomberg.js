@@ -9,11 +9,14 @@ const RSS_URL = 'https://news.google.com/rss/search?q=Bloomberg+%E7%B1%B3%E5%9B%
 router.get('/', async (_req, res) => {
   try {
     const feed = await parser.parseURL(RSS_URL);
-    const items = feed.items.slice(0, 5).map((item) => ({
-      title: item.title?.replace(' - Bloomberg', '').trim(),
-      link: item.link,
-      pubDate: item.pubDate || item.isoDate,
-    }));
+    const items = feed.items
+      .filter((item) => item.title?.includes('【米国市況】'))
+      .slice(0, 5)
+      .map((item) => ({
+        title: item.title?.replace(' - Bloomberg', '').trim(),
+        link: item.link,
+        pubDate: item.pubDate || item.isoDate,
+      }));
     res.json(items);
   } catch (err) {
     console.error('Bloomberg error:', err);
