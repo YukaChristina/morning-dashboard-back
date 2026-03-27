@@ -37,15 +37,21 @@ const SERIES = [
 
 async function fetchSeries(id, key) {
   const url = `https://api.stlouisfed.org/fred/series/observations?series_id=${id}&api_key=${key}&file_type=json&sort_order=desc&limit=2`;
-  const res = await fetch(url);
-  const data = await res.json();
-  return data.observations || [];
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 8000);
+  try {
+    const res = await fetch(url, { signal: controller.signal });
+    const data = await res.json();
+    return data.observations || [];
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 router.get('/', async (_req, res) => {
   try {
     const key = process.env.FRED_API_KEY;
-    const results = await Promise.all(
+    const settled = await Promise.allSettled(
       SERIES.map(async (s) => {
         const obs = await fetchSeries(s.id, key);
         const latest = obs[0];
@@ -58,6 +64,9 @@ router.get('/', async (_req, res) => {
         };
       })
     );
+    const results = settled
+      .filter((r) => r.status === 'fulfilled')
+      .map((r) => r.value);
     res.json(results);
   } catch (err) {
     console.error('Economic error:', err);
