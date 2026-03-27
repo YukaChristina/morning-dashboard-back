@@ -10,7 +10,9 @@ const SYMBOLS = [
   { id: 'sp500',    label: 'S&P500',           symbol: '^GSPC' },
   { id: 'vix',      label: 'VIX',              symbol: '^VIX' },
   { id: 'usdjpy',   label: 'ドル円',            symbol: 'USDJPY=X' },
-  { id: 'gold',     label: 'ゴールド',          symbol: 'GC=F' },
+  { id: 'gold',      label: 'ゴールド',          symbol: 'GC=F' },
+  { id: 'silver',   label: '銀',               symbol: 'SI=F' },
+  { id: 'platinum', label: 'プラチナ',          symbol: 'PL=F' },
   { id: 'oil',      label: '原油（WTI）',       symbol: 'CL=F' },
   { id: 'tnx',      label: '米10年国債利回り',  symbol: '^TNX' },
 ];
