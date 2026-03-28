@@ -8,7 +8,7 @@ router.get('/', async (_req, res) => {
     const key = process.env.NEWS_API_KEY;
     const { data } = await axios.get('https://newsapi.org/v2/everything', {
       params: {
-        q: 'Bloomberg 米国市況',
+        q: 'Bloomberg',
         language: 'ja',
         sortBy: 'publishedAt',
         pageSize: 8,
