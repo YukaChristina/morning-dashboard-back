@@ -17,6 +17,7 @@ router.get('/', async (_req, res) => {
       timeout: 10000,
     });
 
+    console.log('NewsAPI response:', JSON.stringify(data).slice(0, 500));
     const items = (data.articles || []).map((a) => ({
       title: a.title?.replace(' - Bloomberg', '').trim(),
       link: a.url,
